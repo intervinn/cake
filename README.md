@@ -5,6 +5,5 @@ In order to install you must have Go of version 1.20 or newer installed. Current
 ```bash
 git clone https://github.com/intervinn/cake.git
 cd cake
-export GOBIN=/usr/bin # setup gobin, optional if you already did
-sudo go install 
+go install ./cmd/cake
 ```
