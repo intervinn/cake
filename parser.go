@@ -1,4 +1,4 @@
-package main
+package cake
 
 import (
 	"os"
@@ -6,11 +6,11 @@ import (
 )
 
 type Command struct {
-	comment  string
-	name     string
-	cursor   int
-	preq     string
-	commands []string
+	Comment  string
+	Name     string
+	Cursor   int
+	Preq     string
+	Commands []string
 }
 
 type Parser struct {
@@ -42,19 +42,19 @@ func (p *Parser) Parse() ([]*Command, error) {
 			}
 
 			cmds = append(cmds, &Command{
-				name:   name,
-				preq:   preq,
-				cursor: i,
+				Name:   name,
+				Preq:   preq,
+				Cursor: i,
 			})
 		}
 		i++
 	}
 	for i, v := range cmds { // pack command lines between names
 		if i == len(cmds)-1 {
-			v.commands = f[v.cursor+1:]
+			v.Commands = f[v.Cursor+1:]
 			break
 		}
-		v.commands = f[v.cursor+1 : cmds[i+1].cursor]
+		v.Commands = f[v.Cursor+1 : cmds[i+1].Cursor]
 	}
 
 	return cmds, nil

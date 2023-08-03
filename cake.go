@@ -1,4 +1,4 @@
-package main
+package cake
 
 import (
 	"errors"
@@ -8,14 +8,14 @@ import (
 )
 
 type Cake struct {
-	commands []*Command
+	Commands []*Command
 	parser   *Parser
 }
 
 func NewCake(parser *Parser) *Cake {
 
 	return &Cake{
-		commands: []*Command{},
+		Commands: []*Command{},
 		parser:   parser,
 	}
 }
@@ -26,26 +26,26 @@ func (c *Cake) Init() error {
 		return err
 	}
 
-	c.commands = cmds
+	c.Commands = cmds
 	return nil
 }
 
 func (c *Cake) Execute(name string) error {
 
-	cmd := findCommand(c.commands, name)
+	cmd := findCommand(c.Commands, name)
 
 	if cmd == nil {
 		return errors.New("Command not found")
 	}
 
-	if cmd.preq != "" {
-		err := c.Execute(cmd.preq)
+	if cmd.Preq != "" {
+		err := c.Execute(cmd.Preq)
 		if err != nil {
 			return err
 		}
 	}
 
-	for _, v := range cmd.commands {
+	for _, v := range cmd.Commands {
 		n := strings.TrimSpace(v)
 		if n == "" {
 			continue
@@ -65,7 +65,7 @@ func (c *Cake) Execute(name string) error {
 
 func findCommand(cmds []*Command, cmd string) *Command {
 	for _, v := range cmds {
-		if v.name == cmd {
+		if v.Name == cmd {
 			return v
 		}
 	}
